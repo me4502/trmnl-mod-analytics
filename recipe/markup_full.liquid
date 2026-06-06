@@ -1,0 +1,50 @@
+{% assign provider_name = provider | default: 'modrinth' | capitalize %}
+
+<div class="view view--full">
+  <div class="layout layout--col gap--medium">
+    {% if ok == false %}
+      {% render 'error_state' %}
+    {% else %}
+      <div class="grid {% if revenue.requested %}grid--cols-3{% else %}grid--cols-2{% endif %}">
+        <div class="col">
+          {% render 'stat', label: 'Downloads', value: totals.downloads, format: 'number' %}
+        </div>
+        {% if revenue.requested %}
+          <div class="col">
+            {% render 'stat', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+          </div>
+        {% endif %}
+        <div class="col">
+          {% render 'stat', label: 'Projects', value: totals.projects, format: 'number' %}
+        </div>
+      </div>
+
+      <div class="columns">
+        <div class="column">
+          <span class="label label--underline">Per-project downloads</span>
+          <div class="list gap" data-list-limit="true" data-list-hidden-count="true" data-list-max-height="245">
+            {% for project in projects limit: 5 %}
+              {% render 'project_row', project: project %}
+            {% endfor %}
+          </div>
+        </div>
+
+        {% if revenue.requested %}
+          <div class="column">
+            <span class="label label--underline">Revenue</span>
+            <div class="item-list">
+              {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency' %}
+              {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency' %}
+              {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+            </div>
+            {% if revenue.unavailableReason %}
+              <span class="label">{{ revenue.unavailableReason | truncate: 64 }}</span>
+            {% endif %}
+          </div>
+        {% endif %}
+      </div>
+    {% endif %}
+  </div>
+
+  {% render 'title_bar' %}
+</div>

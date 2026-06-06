@@ -1,0 +1,75 @@
+{% template stat %}
+  <div class="item">
+    <div class="meta"></div>
+    <div class="content">
+      <span class="value value--tnums value--large">
+        {% if format == "currency" %}
+          {% if value %}
+            {{ value | number_to_currency }}
+          {% else %}
+            N/A
+          {% endif %}
+        {% elsif format == "number" %}
+          {{ value | number_with_delimiter }}
+        {% else %}
+          {{ value }}
+        {% endif %}
+      </span>
+      <span class="label">{{ label }}</span>
+    </div>
+  </div>
+{% endtemplate %}
+
+{% template stat_small %}
+  <div class="item">
+    <div class="meta"></div>
+    <div class="content">
+      <span class="value value--tnums value--small">
+        {% if format == "currency" %}
+          {% if value %}
+            {{ value | number_to_currency }}
+          {% else %}
+            N/A
+          {% endif %}
+        {% elsif format == "number" %}
+          {{ value | number_with_delimiter }}
+        {% else %}
+          {{ value }}
+        {% endif %}
+      </span>
+      <span class="label label--small">{{ label }}</span>
+    </div>
+  </div>
+{% endtemplate %}
+
+{% template project_row %}
+  <div class="item">
+    <div class="meta"></div>
+    <div class="content">
+      <span class="value value--tnums value--small">{{ project.downloads | number_with_delimiter }}</span>
+      <span class="label label--small">{{ project.title | truncate: 24 }} downloads</span>
+    </div>
+  </div>
+{% endtemplate %}
+
+{% template error_state %}
+  {% assign provider_name = provider | default: "modrinth" | capitalize %}
+  <div class="markdown">
+    <span class="title">{{ instance_title | default: "Mod Analytics" }}</span>
+    {% if error %}
+      <div class="content">{{ error }}</div>
+    {% else %}
+      <div class="content">Unable to load {{ provider_name }} analytics.</div>
+    {% endif %}
+    <span class="label label--underline">Check project IDs and polling headers</span>
+  </div>
+{% endtemplate %}
+
+{% template title_bar %}
+  {% assign provider_name = provider | default: "modrinth" | capitalize %}
+  <div class="title_bar">
+    <img class="image" src="https://trmnl.com/images/plugins/trmnl--render.svg" />
+    <span class="title">{{ instance_title | default: "Mod Analytics" }}</span>
+    <span class="instance">{{ provider_name }}</span>
+  </div>
+{% endtemplate %}

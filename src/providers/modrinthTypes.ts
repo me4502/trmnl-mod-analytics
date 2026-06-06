@@ -5,17 +5,14 @@ export type ModrinthProject = {
   downloads: number;
 };
 
-export type ModrinthUser = {
-  id: string;
-  username: string;
-  payout_data?: {
-    balance?: string | number | null;
-  } | null;
-};
-
-export type ModrinthPayoutHistory = {
-  all_time?: string | null;
-  last_month?: string | null;
+export type ModrinthPayoutBalance = {
+  available: string | number;
+  withdrawn_lifetime: string | number;
+  withdrawn_ytd: string | number;
+  pending: string | number;
+  dates: Record<string, string | number>;
+  requested_form_type?: string | null;
+  form_completion_status?: string | null;
 };
 
 export type ModrinthEnv = {
@@ -24,5 +21,5 @@ export type ModrinthEnv = {
 
 export type ModrinthClientOptions = {
   userAgent: string;
-  baseUrl?: string;
+  apiOrigin?: string;
 };

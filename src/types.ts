@@ -6,9 +6,10 @@ export type ProjectSummary = {
 };
 
 export type RevenueSummary = {
-  balanceUsd: string | null;
-  lastMonthUsd: string | null;
-  allTimeUsd: string | null;
+  requested: boolean;
+  balanceUsd: number | null;
+  lastMonthUsd: number | null;
+  allTimeUsd: number | null;
   unavailableReason: string | null;
 };
 

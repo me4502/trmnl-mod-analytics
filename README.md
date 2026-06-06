@@ -14,7 +14,7 @@ Currently supports the following mod platforms:
 
 ## Authentication
 
-Project totals are public and do not require a token. Revenue requires a raw Modrinth Personal Access Token with `USER_READ` and `PAYOUTS_READ`. This is not stored in the worker.
+Project totals are public and do not require a token. Revenue requires a raw Modrinth Personal Access Token with `PAYOUTS_READ`. This is not stored in the worker.
 
 ## Deployment
 
