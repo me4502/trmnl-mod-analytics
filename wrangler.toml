@@ -1,0 +1,13 @@
+name = "trmnl-mod-analytics"
+main = "src/worker.ts"
+compatibility_date = "2026-06-06"
+
+[vars]
+# If you fork and/or change this project, please change this to identify your own software/deployment.
+# This is here per Modrinth policy to identify the software making requests, so forks should change this to avoid confusion.
+MODRINTH_USER_AGENT = "me4502/trmnl-mod-analytics (https://trmnl-mod-analytics.maddy.tech/)"
+
+[[rules]]
+type = "Text"
+globs = ["**/*.html"]
+fallthrough = true

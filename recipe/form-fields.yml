@@ -1,0 +1,24 @@
+- keyname: about
+  field_type: author_bio
+  name: About Mod Analytics
+  description: Shows total and per project downloads, as well as revenue, from mod platforms (Modrinth only right now) on TRMNL. Project totals are public, but revenue requires a Modrinth Personal Access Token with USER_READ and PAYOUTS_READ.
+  category: analytics
+
+- keyname: project_ids
+  field_type: text
+  name: Project slugs or IDs
+  placeholder: worldedit, worldguard, craftbook
+  description: Comma-separated or JSON array of project slugs/IDs for the selected platform.
+  required: true
+
+- keyname: api_key
+  field_type: password
+  name: API key or access token
+  description: Optional for project totals, required for revenue. For Modrinth, create a PAT with USER_READ and PAYOUTS_READ scopes, then paste the raw token value.
+  optional: true
+
+- keyname: instance_title
+  field_type: string
+  name: Display title
+  default: Mod Analytics
+  optional: true
