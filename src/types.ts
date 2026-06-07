@@ -32,3 +32,7 @@ export type SummaryProvider = {
   buildSummary: (input: { projectIds: string[]; token: string }) => Promise<Summary>;
   getUpstreamErrorMessage: (error: unknown) => string | null;
 };
+
+export function sortProjectsByDownloads(projects: ProjectSummary[]): ProjectSummary[] {
+  return projects.toSorted((a, b) => b.downloads - a.downloads);
+}

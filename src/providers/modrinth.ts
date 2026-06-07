@@ -1,3 +1,4 @@
+import { sortProjectsByDownloads } from "../types.js";
 import type { ProjectSummary, RevenueSummary, Summary, SummaryProvider } from "../types.js";
 import type {
   ModrinthClientOptions,
@@ -26,7 +27,9 @@ class ModrinthProvider {
 
   async buildSummary(input: { projectIds: string[]; token: string; now?: Date }): Promise<Summary> {
     const now = input.now ?? new Date();
-    const projects = await this.fetchProjects(input.projectIds, input.token);
+    const projects = sortProjectsByDownloads(
+      await this.fetchProjects(input.projectIds, input.token),
+    );
     const totalDownloads = projects.reduce((total, project) => total + project.downloads, 0);
 
     const revenue = await this.fetchRevenue(input.token);

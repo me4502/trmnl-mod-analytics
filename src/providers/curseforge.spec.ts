@@ -37,15 +37,15 @@ describe("createCurseForgeSummaryProvider", () => {
       Response.json({
         data: [
           {
+            id: 306770,
+            name: "WorldEdit",
+            downloadCount: 789,
+          },
+          {
             id: 238222,
             name: "Just Enough Items",
             slug: "jei",
             downloadCount: 123456,
-          },
-          {
-            id: 306770,
-            name: "WorldEdit",
-            downloadCount: 789,
           },
         ],
       }),
