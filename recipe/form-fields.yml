@@ -1,7 +1,7 @@
 - keyname: about
   field_type: author_bio
   name: About Mod Analytics
-  description: Shows total and per project downloads, as well as revenue, from mod platforms. Modrinth is supported right now. Project totals are public, but revenue requires a Modrinth Personal Access Token with PAYOUTS_READ.
+  description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth and CurseForge. Modrinth revenue requires a PAT with PAYOUTS_READ. CurseForge requires an API key for downloads.
   category: analytics
 
 - keyname: provider
@@ -10,19 +10,20 @@
   description: Select the mod platform to show analytics for.
   options:
     - Modrinth: modrinth
+    - CurseForge: curseforge
   default: modrinth
 
 - keyname: project_ids
   field_type: text
   name: Project slugs or IDs
   placeholder: worldedit, worldguard, craftbook
-  description: Comma-separated or JSON array of project slugs/IDs for the selected platform.
+  description: Comma-separated or JSON array of project slugs/IDs for the selected platform. Use Modrinth slugs or IDs, or CurseForge numeric mod IDs.
   required: true
 
 - keyname: api_key
   field_type: password
   name: API key or access token
-  description: Optional for project totals, required for revenue. For Modrinth, create a PAT with the PAYOUTS_READ scope, then paste the raw token value.
+  description: For Modrinth, optional for downloads (for revenue, create a PAT with PAYOUTS_READ). Required for CurseForge.
   optional: true
 
 - keyname: instance_title

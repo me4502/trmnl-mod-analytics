@@ -5,16 +5,24 @@ A TRMNL Recipe, powered by a small Cloudflare Worker microservice, for analytics
 Currently supports the following mod platforms:
 
 - Modrinth
+- CurseForge
 
 ## Data shown
 
 - Current total downloads across selected projects.
-- Per-project download
-- Payout, last-month USD revenue, and all-time USD revenue.
+- Per-project downloads.
+- Payout, last-month USD revenue, and all-time USD revenue where the platform exposes it.
 
 ## Authentication
 
-Project totals are public and do not require a token. Revenue requires a raw Modrinth Personal Access Token with `PAYOUTS_READ`. This is not stored in the worker.
+Modrinth:
+
+- Project totals are public and do not require a token.
+- Revenue requires a raw Personal Access Token with `PAYOUTS_READ`.
+
+CurseForge:
+
+- Download count requires a CurseForge Core API key.
 
 ## Deployment
 

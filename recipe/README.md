@@ -22,6 +22,10 @@ While this is a generic field, the instructions vary per platform.
 
 The api key (PAT) provided is expected to have the PAYOUTS_READ scope.
 
+### CurseForge
+
+The api key is required and should be a CurseForge Core API key.
+
 ## Returned JSON shape
 
 ```json

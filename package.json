@@ -15,7 +15,7 @@
     "fmt": "oxfmt --write . src/**/*",
     "fmt:check": "oxfmt --check . src/**/*",
     "typecheck": "tsc --noEmit",
-    "test": "vitest",
+    "test": "vitest --run",
     "prune": "knip"
   },
   "devDependencies": {
