@@ -96,17 +96,21 @@ async function handleSummary(
 
   const token = request.headers.get("authorization")?.trim() ?? "";
   try {
-    return jsonResponse(
-      await provider.buildSummary({
-        projectIds,
-        token,
-      }),
-    );
+    const summary = await provider.buildSummary({
+      projectIds,
+      token,
+    });
+
+    return jsonResponse({
+      ...summary,
+      providerName: provider.label,
+    });
   } catch (error) {
     const upstreamError = provider.getUpstreamErrorMessage(error);
     if (upstreamError) {
       return jsonResponse({
         ok: false,
+        providerName: provider.label,
         error: upstreamError,
         generatedAt: new Date().toISOString(),
       });
@@ -116,6 +120,7 @@ async function handleSummary(
     return jsonResponse(
       {
         ok: false,
+        providerName: provider.label,
         error: message,
         generatedAt: new Date().toISOString(),
       },

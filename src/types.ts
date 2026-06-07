@@ -15,6 +15,7 @@ export type RevenueSummary = {
 
 export type Summary = {
   ok: true;
+  providerName?: string;
   projects: ProjectSummary[];
   totals: {
     downloads: number;

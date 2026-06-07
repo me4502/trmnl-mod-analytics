@@ -1,6 +1,4 @@
-{% assign provider_name = provider | default: 'modrinth' | capitalize %}
-
-<div class="view view--full">
+<div class="view">
   <div class="layout layout--col gap--medium">
     {% if ok == false %}
       {% render 'error_state' %}

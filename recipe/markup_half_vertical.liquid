@@ -1,7 +1,7 @@
-<div class="view view--half_vertical">
+<div class="view">
   <div class="layout layout--col gap--medium">
     {% if ok == false %}
-      {% render "error_state" %}
+      {% render 'error_state' %}
     {% else %}
       <div class="grid grid--cols-3">
         <div class="col">
@@ -54,5 +54,5 @@
     {% endif %}
   </div>
 
-  {% render "title_bar" %}
+  {% render 'title_bar' %}
 </div>
