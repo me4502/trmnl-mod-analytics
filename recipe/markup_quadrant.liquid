@@ -1,24 +1,22 @@
-<div class="view">
-  <div class="layout layout--col gap--small">
-    {% if ok == false %}
-      {% render 'error_state', error: error, instance_title: instance_title, providerName: providerName %}
-    {% else %}
-      <div class="grid grid--cols-2">
-        <div class="col">
-          {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number' %}
-        </div>
-        {% if revenue.requested %}
-          <div class="col">
-            {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
-          </div>
-        {% else %}
-          <div class="col">
-            {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number' %}
-          </div>
-        {% endif %}
+<div class="layout layout--col gap--small">
+  {% if ok == false %}
+    {% render 'error_state', error: error, instance_title: instance_title, providerName: providerName %}
+  {% else %}
+    <div class="grid grid--cols-2">
+      <div class="col">
+        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number' %}
       </div>
-    {% endif %}
-  </div>
-
-  {% render 'title_bar', instance_title: instance_title, providerName: providerName %}
+      {% if revenue.requested %}
+        <div class="col">
+          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+        </div>
+      {% else %}
+        <div class="col">
+          {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number' %}
+        </div>
+      {% endif %}
+    </div>
+  {% endif %}
 </div>
+
+{% render 'title_bar', instance_title: instance_title, providerName: providerName %}

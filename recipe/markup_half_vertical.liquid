@@ -1,58 +1,56 @@
-<div class="view">
-  <div class="layout layout--col gap--medium">
-    {% if ok == false %}
-      {% render 'error_state', error: error, instance_title: instance_title, providerName: providerName %}
-    {% else %}
+<div class="layout layout--col gap--medium">
+  {% if ok == false %}
+    {% render 'error_state', error: error, instance_title: instance_title, providerName: providerName %}
+  {% else %}
+    <div class="grid grid--cols-3">
+      <div class="col">
+        <span class="label label--underline">Totals</span>
+      </div>
+      <div class="col">
+        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number' %}
+      </div>
+      <div class="col">
+        {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number' %}
+      </div>
+    </div>
+
+    {% if revenue.requested %}
       <div class="grid grid--cols-3">
         <div class="col">
-          <span class="label label--underline">Totals</span>
+          <span class="label label--underline">Revenue</span>
         </div>
         <div class="col">
-          {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number' %}
+          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
         </div>
         <div class="col">
-          {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number' %}
+          {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency' %}
+        </div>
+        <div class="col"></div>
+        <div class="col">
+          {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency' %}
         </div>
       </div>
-
-      {% if revenue.requested %}
-        <div class="grid grid--cols-3">
-          <div class="col">
-            <span class="label label--underline">Revenue</span>
-          </div>
-          <div class="col">
-            {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
-          </div>
-          <div class="col">
-            {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency' %}
-          </div>
-          <div class="col"></div>
-          <div class="col">
-            {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency' %}
-          </div>
-        </div>
-      {% endif %}
-
-      <div class="grid grid--cols-3">
-        <div class="col">
-          <span class="label label--underline">Projects</span>
-        </div>
-        {% for project in projects limit: 4 %}
-          {% if forloop.index0 == 2 %}
-            <div class="col"></div>
-          {% endif %}
-          <div class="col">
-            {% assign project_label = project.title | truncate: 24 | append: ' downloads' %}
-            {% render 'stat_small', label: project_label, value: project.downloads, format: 'number' %}
-          </div>
-        {% endfor %}
-      </div>
-
-      {% if revenue.requested and revenue.unavailableReason %}
-        <span class="label">{{ revenue.unavailableReason | truncate: 48 }}</span>
-      {% endif %}
     {% endif %}
-  </div>
 
-  {% render 'title_bar', instance_title: instance_title, providerName: providerName %}
+    <div class="grid grid--cols-3">
+      <div class="col">
+        <span class="label label--underline">Projects</span>
+      </div>
+      {% for project in projects limit: 4 %}
+        {% if forloop.index0 == 2 %}
+          <div class="col"></div>
+        {% endif %}
+        <div class="col">
+          {% assign project_label = project.title | truncate: 24 | append: ' downloads' %}
+          {% render 'stat_small', label: project_label, value: project.downloads, format: 'number' %}
+        </div>
+      {% endfor %}
+    </div>
+
+    {% if revenue.requested and revenue.unavailableReason %}
+      <span class="label">{{ revenue.unavailableReason | truncate: 48 }}</span>
+    {% endif %}
+  {% endif %}
 </div>
+
+{% render 'title_bar', instance_title: instance_title, providerName: providerName %}
