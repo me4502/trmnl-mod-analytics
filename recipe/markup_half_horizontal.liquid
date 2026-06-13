@@ -4,15 +4,15 @@
   {% else %}
     <div class="grid {% if revenue.requested %}grid--cols-3{% else %}grid--cols-2{% endif %}">
       <div class="col">
-        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number' %}
+        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number', fit: true %}
       </div>
       {% if revenue.requested %}
         <div class="col">
-          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true %}
         </div>
       {% endif %}
       <div class="col">
-        {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number' %}
+        {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number', fit: true %}
       </div>
     </div>
 
@@ -30,8 +30,8 @@
         <div class="column">
           <span class="label label--underline">Revenue</span>
           <div class="item-list">
-            {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency' %}
-            {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency' %}
+            {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency', fit: true %}
+            {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency', fit: true %}
           </div>
           {% if revenue.unavailableReason %}
             <span class="label">{{ revenue.unavailableReason | truncate: 42 }}</span>

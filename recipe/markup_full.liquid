@@ -4,15 +4,15 @@
   {% else %}
     <div class="grid {% if revenue.requested %}grid--cols-3{% else %}grid--cols-2{% endif %}">
       <div class="col">
-        {% render 'stat', label: 'Downloads', value: totals.downloads, format: 'number' %}
+        {% render 'stat', label: 'Downloads', value: totals.downloads, format: 'number', fit: true, size: 'value--large' %}
       </div>
       {% if revenue.requested %}
         <div class="col">
-          {% render 'stat', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+          {% render 'stat', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true, size: 'value--large' %}
         </div>
       {% endif %}
       <div class="col">
-        {% render 'stat', label: 'Projects', value: totals.projects, format: 'number' %}
+        {% render 'stat', label: 'Projects', value: totals.projects, format: 'number', fit: true, size: 'value--large' %}
       </div>
     </div>
 
@@ -29,10 +29,10 @@
       {% if revenue.requested %}
         <div class="column">
           <span class="label label--underline">Revenue</span>
-          <div class="item-list">
-            {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency' %}
-            {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency' %}
-            {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+          <div class="list gap">
+            {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency', fit: true, size: 'value--base' %}
+            {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency', fit: true, size: 'value--base' %}
+            {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true, size: 'value--base' %}
           </div>
           {% if revenue.unavailableReason %}
             <span class="label">{{ revenue.unavailableReason | truncate: 64 }}</span>

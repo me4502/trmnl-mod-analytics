@@ -2,17 +2,17 @@
   {% if ok == false %}
     {% render 'error_state', error: error, instance_title: instance_title, providerName: providerName %}
   {% else %}
-    <div class="grid grid--cols-2">
+    <div class="grid grid--cols-2 portrait:grid--cols-1">
       <div class="col">
-        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number' %}
+        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number', fit: true, size: 'value--small portrait:value--base' %}
       </div>
       {% if revenue.requested %}
         <div class="col">
-          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true, size: 'value--small portrait:value--base' %}
         </div>
       {% else %}
         <div class="col">
-          {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number' %}
+          {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number', fit: true, size: 'value--small portrait:value--base' %}
         </div>
       {% endif %}
     </div>

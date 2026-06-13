@@ -2,38 +2,38 @@
   {% if ok == false %}
     {% render 'error_state', error: error, instance_title: instance_title, providerName: providerName %}
   {% else %}
-    <div class="grid grid--cols-3">
-      <div class="col">
+    <div class="grid grid--cols-3 portrait:grid--cols-2">
+      <div class="col portrait:col--span-2">
         <span class="label label--underline">Totals</span>
       </div>
       <div class="col">
-        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number' %}
+        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number', fit: true %}
       </div>
       <div class="col">
-        {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number' %}
+        {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number', fit: true %}
       </div>
     </div>
 
     {% if revenue.requested %}
-      <div class="grid grid--cols-3">
-        <div class="col">
+      <div class="grid grid--cols-3 portrait:grid--cols-2">
+        <div class="col portrait:col--span-2">
           <span class="label label--underline">Revenue</span>
         </div>
         <div class="col">
-          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency' %}
+          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true %}
         </div>
         <div class="col">
-          {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency' %}
+          {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency', fit: true %}
         </div>
         <div class="col"></div>
         <div class="col">
-          {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency' %}
+          {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency', fit: true %}
         </div>
       </div>
     {% endif %}
 
-    <div class="grid grid--cols-3">
-      <div class="col">
+    <div class="grid grid--cols-3 portrait:grid--cols-2">
+      <div class="col portrait:col--span-2">
         <span class="label label--underline">Projects</span>
       </div>
       {% for project in projects limit: 4 %}
@@ -42,7 +42,7 @@
         {% endif %}
         <div class="col">
           {% assign project_label = project.title | truncate: 24 | append: ' downloads' %}
-          {% render 'stat_small', label: project_label, value: project.downloads, format: 'number' %}
+          {% render 'stat_small', label: project_label, value: project.downloads, format: 'number', fit: true %}
         </div>
       {% endfor %}
     </div>
