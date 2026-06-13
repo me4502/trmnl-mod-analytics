@@ -30,9 +30,9 @@
         <div class="column">
           <span class="label label--underline">Revenue</span>
           <div class="list gap">
-            {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency', fit: true, size: 'value--base' %}
-            {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency', fit: true, size: 'value--base' %}
-            {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true, size: 'value--base' %}
+            {% render 'stat_small', label: 'All time', value: revenue.allTimeUsd, format: 'currency', fit: true %}
+            {% render 'stat_small', label: 'Last month', value: revenue.lastMonthUsd, format: 'currency', fit: true %}
+            {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true %}
           </div>
           {% if revenue.unavailableReason %}
             <span class="label">{{ revenue.unavailableReason | truncate: 64 }}</span>
