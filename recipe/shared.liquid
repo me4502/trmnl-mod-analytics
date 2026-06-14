@@ -2,7 +2,12 @@
 <div class="item">
   <div class="meta"></div>
   <div class="content">
-    <span class="value value--tnums {{ size | default: 'value--large' }} lg:value--xlarge" {% if fit %}data-value-fit="true"{% endif %}>
+    <span
+      class="value value--tnums {{ size | default: 'value--large' }} lg:value--xlarge"
+      {% if fit %}
+        data-value-fit="true"
+      {% endif %}
+    >
       {% if format == 'currency' %}
         {% if value %}
           {{ value | number_to_currency }}
@@ -24,7 +29,12 @@
 <div class="item">
   <div class="meta"></div>
   <div class="content">
-    <span class="value value--tnums {{ size | default: 'value--small' }} lg:value--base" {% if fit %}data-value-fit="true"{% endif %}>
+    <span
+      class="value value--tnums {{ size | default: 'value--small' }} lg:value--base"
+      {% if fit %}
+        data-value-fit="true"
+      {% endif %}
+    >
       {% if format == 'currency' %}
         {% if value %}
           {{ value | number_to_currency }}
@@ -46,7 +56,9 @@
 <div class="item">
   <div class="meta"></div>
   <div class="content">
-    <span class="value value--tnums value--small lg:value--base" data-value-fit="true">{{ project.downloads | number_with_delimiter }}</span>
+    <span class="value value--tnums value--small lg:value--base" data-value-fit="true">
+      {{- project.downloads | number_with_delimiter -}}
+    </span>
     <span class="label label--small">{{ project.title | truncate: 24 }} downloads</span>
   </div>
 </div>

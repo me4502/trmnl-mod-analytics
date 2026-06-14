@@ -18,7 +18,7 @@
 
     <div class="columns">
       <div class="column">
-        <span class="label label--underline">Projects</span>
+        <span class="label label--underline">Per-project downloads</span>
         <div class="list gap" data-list-limit="true" data-list-hidden-count="true" data-list-max-height="95">
           {% for project in projects limit: 3 %}
             {% render 'project_row', project: project %}

@@ -4,17 +4,55 @@
   {% else %}
     <div class="grid grid--cols-2 portrait:grid--cols-1">
       <div class="col">
-        {% render 'stat_small', label: 'Downloads', value: totals.downloads, format: 'number', fit: true, size: 'value--small portrait:value--base' %}
+        {% render 'stat_small',
+          label: 'Downloads',
+          value: totals.downloads,
+          format: 'number',
+          fit: true,
+          size: 'value--small portrait:value--base'
+        %}
       </div>
       {% if revenue.requested %}
         <div class="col">
-          {% render 'stat_small', label: 'Balance', value: revenue.balanceUsd, format: 'currency', fit: true, size: 'value--small portrait:value--base' %}
+          {% render 'stat_small',
+            label: 'Balance',
+            value: revenue.balanceUsd,
+            format: 'currency',
+            fit: true,
+            size: 'value--small portrait:value--base'
+          %}
         </div>
       {% else %}
         <div class="col">
-          {% render 'stat_small', label: 'Projects', value: totals.projects, format: 'number', fit: true, size: 'value--small portrait:value--base' %}
+          {% render 'stat_small',
+            label: 'Projects',
+            value: totals.projects,
+            format: 'number',
+            fit: true,
+            size: 'value--small portrait:value--base'
+          %}
         </div>
       {% endif %}
+
+      {% if revenue.requested %}
+        <div class="col hidden lg:visible">
+          {% render 'stat_small', label: 'All time revenue', value: revenue.allTimeUsd, format: 'currency', fit: true %}
+        </div>
+        <div class="col hidden lg:visible">
+          {% render 'stat_small',
+            label: 'Last month revenue',
+            value: revenue.lastMonthUsd,
+            format: 'currency',
+            fit: true
+          %}
+        </div>
+      {% endif %}
+      {% for project in projects limit: 2 %}
+        <div class="col hidden lg:visible">
+          {% assign project_label = project.title | truncate: 18 | append: ' downloads' %}
+          {% render 'stat_small', label: project_label, value: project.downloads, format: 'number', fit: true %}
+        </div>
+      {% endfor %}
     </div>
   {% endif %}
 </div>
