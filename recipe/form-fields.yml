@@ -1,7 +1,7 @@
 - keyname: about
   field_type: author_bio
   name: About Mod Analytics
-  description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth and CurseForge. Modrinth revenue requires a PAT with PAYOUTS_READ.
+  description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth, CurseForge, and Thunderstore. Modrinth revenue requires a PAT with PAYOUTS_READ.
   category: analytics
   github_url: https://github.com/Me4502/trmnl-mod-analytics
   email_address: trmnl@madelinemiller.dev
@@ -13,19 +13,20 @@
   options:
     - Modrinth: modrinth
     - CurseForge: curseforge
+    - Thunderstore: thunderstore
   default: modrinth
 
 - keyname: project_ids
   field_type: text
   name: Project slugs or IDs
   placeholder: worldedit, worldguard, craftbook
-  description: Comma-separated or JSON array of project slugs/IDs for the selected platform. Use Modrinth slugs or IDs, or CurseForge numeric mod IDs.
+  description: Comma-separated or JSON array of project slugs/IDs for the selected platform. Use Modrinth slugs or IDs, CurseForge numeric mod IDs, or Thunderstore community/owner/package identifiers.
   required: true
 
 - keyname: api_key
   field_type: password
   name: API key or access token
-  description: Optional. For Modrinth revenue, create a PAT with PAYOUTS_READ. CurseForge does not use this field.
+  description: Optional. For Modrinth revenue, create a PAT with PAYOUTS_READ. CurseForge and Thunderstore do not use this field.
   optional: true
 
 - keyname: instance_title

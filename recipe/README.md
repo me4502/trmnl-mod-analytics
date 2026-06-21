@@ -24,7 +24,11 @@ The api key (PAT) provided is expected to have the PAYOUTS_READ scope.
 
 ### CurseForge
 
-CurseForge uses the Worker-owned `CURSEFORGE_API_KEY` key, so users do not need to enter a CurseForge key in TRMNL. Use numeric CurseForge mod IDs for project IDs. Revenue is not available for CurseForge, so the Recipe hides revenue fields for this provider.
+CurseForge uses the Worker-owned `CURSEFORGE_API_KEY` key, so users do not need to enter a CurseForge key in TRMNL. To set up a copy of the worker, request a CurseForge API key from CurseForge.
+
+### Thunderstore
+
+Thunderstore does not require an API key
 
 ## Returned JSON shape
 

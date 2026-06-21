@@ -6,6 +6,7 @@ Currently supports the following mod platforms:
 
 - Modrinth
 - CurseForge
+- Thunderstore
 
 ## Data shown
 
@@ -22,7 +23,11 @@ Modrinth:
 
 CurseForge:
 
-- Download count requires a CurseForge Core API key.
+- Download count authentication is handled by the worker and does not require a token.
+
+Thunderstore:
+
+- Download count is public and does not require a token.
 
 ## Deployment
 
