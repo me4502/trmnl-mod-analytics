@@ -24,7 +24,7 @@ The api key (PAT) provided is expected to have the PAYOUTS_READ scope.
 
 ### CurseForge
 
-The api key is required and should be a CurseForge Core API key. Use numeric CurseForge mod IDs for project IDs. Revenue is not available for CurseForge, so the Recipe hides revenue fields for this provider.
+CurseForge uses the Worker-owned `CURSEFORGE_API_KEY` key, so users do not need to enter a CurseForge key in TRMNL. Use numeric CurseForge mod IDs for project IDs. Revenue is not available for CurseForge, so the Recipe hides revenue fields for this provider.
 
 ## Returned JSON shape
 

@@ -3,7 +3,7 @@ import { createCurseForgeSummaryProvider } from "./curseforge.js";
 
 describe("createCurseForgeSummaryProvider", () => {
   it("requires a CurseForge API key", async () => {
-    const provider = createCurseForgeSummaryProvider();
+    const provider = createCurseForgeSummaryProvider({});
 
     let caught: unknown;
     try {
@@ -13,16 +13,18 @@ describe("createCurseForgeSummaryProvider", () => {
     }
 
     expect(provider.getUpstreamErrorMessage(caught)).toBe(
-      "Add a valid CurseForge API key to show CurseForge downloads.",
+      "CurseForge is not configured. Add CURSEFORGE_API_KEY to the Worker secrets.",
     );
   });
 
   it("requires numeric project IDs", async () => {
-    const provider = createCurseForgeSummaryProvider();
+    const provider = createCurseForgeSummaryProvider({
+      CURSEFORGE_API_KEY: "worker-curseforge-key",
+    });
 
     let caught: unknown;
     try {
-      await provider.buildSummary({ projectIds: ["worldedit"], token: "curseforge-key" });
+      await provider.buildSummary({ projectIds: ["worldedit"], token: "" });
     } catch (error) {
       caught = error;
     }
@@ -52,10 +54,12 @@ describe("createCurseForgeSummaryProvider", () => {
     );
     vi.stubGlobal("fetch", fetchMock);
 
-    const provider = createCurseForgeSummaryProvider();
+    const provider = createCurseForgeSummaryProvider({
+      CURSEFORGE_API_KEY: "worker-curseforge-key",
+    });
     const summary = await provider.buildSummary({
       projectIds: ["238222", "306770"],
-      token: "curseforge-key",
+      token: "",
     });
 
     expect(summary.projects).toEqual([
@@ -80,7 +84,7 @@ describe("createCurseForgeSummaryProvider", () => {
         method: "POST",
         body: JSON.stringify({ modIds: [238222, 306770] }),
         headers: expect.objectContaining({
-          "x-api-key": "curseforge-key",
+          "x-api-key": "worker-curseforge-key",
         }),
       }),
     );
@@ -100,12 +104,14 @@ describe("createCurseForgeSummaryProvider", () => {
     );
     vi.stubGlobal("fetch", fetchMock);
 
-    const provider = createCurseForgeSummaryProvider();
+    const provider = createCurseForgeSummaryProvider({
+      CURSEFORGE_API_KEY: "worker-curseforge-key",
+    });
     let caught: unknown;
     try {
       await provider.buildSummary({
         projectIds: ["238222", "306770"],
-        token: "curseforge-key",
+        token: "",
       });
     } catch (error) {
       caught = error;

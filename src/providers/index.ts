@@ -1,9 +1,10 @@
 import type { SummaryProvider } from "../types.js";
 import { createCurseForgeSummaryProvider } from "./curseforge.js";
+import type { CurseForgeEnv } from "./curseforgeTypes.js";
 import { createModrinthSummaryProvider } from "./modrinth.js";
 import type { ModrinthEnv } from "./modrinthTypes.js";
 
-export type ProviderEnv = ModrinthEnv;
+export type ProviderEnv = CurseForgeEnv & ModrinthEnv;
 
 export function createSummaryProvider(
   providerKey: string,
@@ -12,7 +13,7 @@ export function createSummaryProvider(
   if (providerKey === "modrinth") {
     return createModrinthSummaryProvider(env);
   } else if (providerKey === "curseforge") {
-    return createCurseForgeSummaryProvider();
+    return createCurseForgeSummaryProvider(env);
   }
 
   return null;

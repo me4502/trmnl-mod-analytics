@@ -2,6 +2,7 @@ import { sortProjectsByDownloads } from "../types.js";
 import type { ProjectSummary, RevenueSummary, Summary, SummaryProvider } from "../types.js";
 import type {
   CurseForgeClientOptions,
+  CurseForgeEnv,
   CurseForgeMod,
   CurseForgeModsResponse,
 } from "./curseforgeTypes.js";
@@ -17,16 +18,16 @@ class CurseForgeApiError extends Error {
 
 class CurseForgeProvider {
   private readonly apiBaseUrl: string;
+  private readonly apiKey: string;
 
   constructor(options: CurseForgeClientOptions = {}) {
     this.apiBaseUrl = options.apiBaseUrl ?? "https://api.curseforge.com/v1";
+    this.apiKey = options.apiKey?.trim() ?? "";
   }
 
-  async buildSummary(input: { projectIds: string[]; token: string; now?: Date }): Promise<Summary> {
+  async buildSummary(input: { projectIds: string[]; now?: Date }): Promise<Summary> {
     const now = input.now ?? new Date();
-    const projects = sortProjectsByDownloads(
-      await this.fetchProjects(input.projectIds, input.token),
-    );
+    const projects = sortProjectsByDownloads(await this.fetchProjects(input.projectIds));
     const totalDownloads = projects.reduce((total, project) => total + project.downloads, 0);
 
     return {
@@ -41,18 +42,16 @@ class CurseForgeProvider {
     };
   }
 
-  private async fetchProjects(projectIds: string[], apiKey: string): Promise<ProjectSummary[]> {
-    if (apiKey.length === 0) {
-      throw new CurseForgeApiError("Missing CurseForge API key", 401);
+  private async fetchProjects(projectIds: string[]): Promise<ProjectSummary[]> {
+    if (this.apiKey.length === 0) {
+      throw new CurseForgeApiError("Missing CurseForge API key", 0);
     }
 
     const modIds = projectIds.map((projectId) => Number(projectId));
     if (modIds.some((projectId) => !Number.isSafeInteger(projectId) || projectId <= 0)) {
       throw new CurseForgeApiError("CurseForge project IDs must be positive numeric mod IDs", 400);
     }
-
     const response = await this.request<CurseForgeModsResponse>("/mods", {
-      apiKey,
       body: { modIds },
     });
 
@@ -70,13 +69,13 @@ class CurseForgeProvider {
     });
   }
 
-  private async request<T>(path: string, options: { apiKey: string; body: unknown }): Promise<T> {
+  private async request<T>(path: string, options: { body: unknown }): Promise<T> {
     const response = await fetch(`${this.apiBaseUrl}${path}`, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
-        "x-api-key": options.apiKey,
+        "x-api-key": this.apiKey,
       },
       body: JSON.stringify(options.body),
     });
@@ -93,8 +92,10 @@ class CurseForgeProvider {
   }
 }
 
-export function createCurseForgeSummaryProvider(): SummaryProvider {
-  const curseForge = new CurseForgeProvider();
+export function createCurseForgeSummaryProvider(env: CurseForgeEnv): SummaryProvider {
+  const curseForge = new CurseForgeProvider({
+    apiKey: env.CURSEFORGE_API_KEY,
+  });
 
   return {
     key: "curseforge",
@@ -129,8 +130,11 @@ function curseForgeErrorMessage(status: number): string {
   if (status === 400) {
     return "CurseForge project IDs must be positive numeric mod IDs.";
   }
+  if (status === 0) {
+    return "CurseForge is not configured. Add CURSEFORGE_API_KEY to the Worker secrets.";
+  }
   if (status === 401 || status === 403) {
-    return "Add a valid CurseForge API key to show CurseForge downloads.";
+    return "CurseForge rejected the API key.";
   }
   if (status === 404) {
     return "One or more CurseForge projects could not be found.";

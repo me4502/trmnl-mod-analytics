@@ -1,7 +1,7 @@
 - keyname: about
   field_type: author_bio
   name: About Mod Analytics
-  description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth and CurseForge. Modrinth revenue requires a PAT with PAYOUTS_READ. CurseForge requires an API key for downloads.
+  description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth and CurseForge. Modrinth revenue requires a PAT with PAYOUTS_READ.
   category: analytics
   github_url: https://github.com/Me4502/trmnl-mod-analytics
   email_address: trmnl@madelinemiller.dev
@@ -25,7 +25,7 @@
 - keyname: api_key
   field_type: password
   name: API key or access token
-  description: For Modrinth, optional for downloads (for revenue, create a PAT with PAYOUTS_READ). Required for CurseForge.
+  description: Optional. For Modrinth revenue, create a PAT with PAYOUTS_READ. CurseForge does not use this field.
   optional: true
 
 - keyname: instance_title
