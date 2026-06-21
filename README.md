@@ -7,6 +7,7 @@ Currently supports the following mod platforms:
 - Modrinth
 - CurseForge
 - Thunderstore
+- Nexus Mods
 
 ## Data shown
 
@@ -23,11 +24,15 @@ Modrinth:
 
 CurseForge:
 
-- Download count authentication is handled by the worker and does not require a token.
+- API authentication is handled by the worker and does not require a token.
 
 Thunderstore:
 
 - Download count is public and does not require a token.
+
+Nexus Mods:
+
+- An API key is required for all usage
 
 ## Deployment
 

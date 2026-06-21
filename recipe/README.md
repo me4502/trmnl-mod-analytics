@@ -30,6 +30,10 @@ CurseForge uses the Worker-owned `CURSEFORGE_API_KEY` key, so users do not need 
 
 Thunderstore does not require an API key
 
+### Nexus Mods
+
+The api key is required and should be a Nexus Mods API key.
+
 ## Returned JSON shape
 
 ```json

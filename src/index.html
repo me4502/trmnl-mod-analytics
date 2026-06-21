@@ -10,10 +10,18 @@
     <pre>GET /api/modrinth/summary?project_ids=worldedit,worldguard</pre>
     <pre>GET /api/curseforge/summary?project_ids=225608,254692</pre>
     <pre>GET /api/thunderstore/summary?project_ids=lethal-company/ebkr/r2modman</pre>
+    <pre>GET /api/nexusmods/summary?project_ids=skyrimspecialedition/2347</pre>
     <p>
-      Pass provider credentials in the <code>Authorization</code> header only. Tokens are forwarded
-      to the selected provider and are not stored.
+      Auth is provider-specific and is always supplied through the
+      <code>Authorization</code> header:
     </p>
+    <ul>
+      <li>Modrinth: optional; required only for revenue data.</li>
+      <li>Nexus Mods: required; pass your Nexus Mods API key.</li>
+      <li>CurseForge: not required; this service uses its own internal API key.</li>
+      <li>Thunderstore: not required.</li>
+    </ul>
+    <p>Tokens are forwarded only when the selected provider needs them and are not stored.</p>
     <p>
       Created by <a href="https://madelinemiller.dev/">Me4502</a>. Source code available on
       <a href="https://github.com/me4502/trmnl-mod-analytics">GitHub</a>.
