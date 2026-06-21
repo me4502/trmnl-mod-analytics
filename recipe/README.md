@@ -34,6 +34,10 @@ Thunderstore does not require an API key
 
 The api key is required and should be a Nexus Mods API key.
 
+### Steam Workshop
+
+Steam Workshop does not require an API key.
+
 ## Returned JSON shape
 
 ```json

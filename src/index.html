@@ -11,6 +11,7 @@
     <pre>GET /api/curseforge/summary?project_ids=225608,254692</pre>
     <pre>GET /api/thunderstore/summary?project_ids=lethal-company/ebkr/r2modman</pre>
     <pre>GET /api/nexusmods/summary?project_ids=skyrimspecialedition/2347</pre>
+    <pre>GET /api/steamworkshop/summary?project_ids=2009463077</pre>
     <p>
       Auth is provider-specific and is always supplied through the
       <code>Authorization</code> header:
@@ -20,6 +21,7 @@
       <li>Nexus Mods: required; pass your Nexus Mods API key.</li>
       <li>CurseForge: not required; this service uses its own internal API key.</li>
       <li>Thunderstore: not required.</li>
+      <li>Steam Workshop: not required.</li>
     </ul>
     <p>Tokens are forwarded only when the selected provider needs them and are not stored.</p>
     <p>

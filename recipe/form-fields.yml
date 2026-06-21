@@ -1,7 +1,7 @@
 - keyname: about
   field_type: author_bio
   name: About Mod Analytics
-  description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth, CurseForge, Thunderstore, and Nexus Mods. Modrinth revenue requires a PAT with PAYOUTS_READ.
+  description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth, CurseForge, Thunderstore, Nexus Mods, and Steam Workshop. Modrinth revenue requires a PAT with PAYOUTS_READ.
   category: analytics
   github_url: https://github.com/Me4502/trmnl-mod-analytics
   email_address: trmnl@madelinemiller.dev
@@ -15,19 +15,20 @@
     - CurseForge: curseforge
     - Thunderstore: thunderstore
     - Nexus Mods: nexusmods
+    - Steam Workshop: steamworkshop
   default: modrinth
 
 - keyname: project_ids
   field_type: text
   name: Project slugs or IDs
   placeholder: worldedit, worldguard, craftbook
-  description: Comma-separated or JSON array of project slugs/IDs for the selected platform. Use Modrinth slugs or IDs, CurseForge numeric mod IDs, Thunderstore community/owner/package identifiers, or Nexus Mods game_domain/mod_id identifiers.
+  description: Comma-separated or JSON array of project slugs/IDs for the selected platform. Use Modrinth slugs or IDs, CurseForge numeric mod IDs, Thunderstore community/owner/package identifiers, Nexus Mods game_domain/mod_id identifiers, or Steam Workshop published file IDs.
   required: true
 
 - keyname: api_key
   field_type: password
   name: API key or access token
-  description: Required for Nexus Mods, optional for others. For Modrinth revenue, create a PAT with PAYOUTS_READ. CurseForge and Thunderstore do not use this field.
+  description: Required for Nexus Mods, optional for others. For Modrinth revenue, create a PAT with PAYOUTS_READ. CurseForge, Thunderstore, and Steam Workshop do not use this field.
   optional: true
 
 - keyname: instance_title

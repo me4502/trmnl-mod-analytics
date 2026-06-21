@@ -8,6 +8,7 @@ Currently supports the following mod platforms:
 - CurseForge
 - Thunderstore
 - Nexus Mods
+- Steam Workshop
 
 ## Data shown
 
@@ -33,6 +34,10 @@ Thunderstore:
 Nexus Mods:
 
 - An API key is required for all usage
+
+Steam Workshop:
+
+- Lifetime subscriptions (used as a proxy for 'downloads') are public and do not require a token.
 
 ## Deployment
 
