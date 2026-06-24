@@ -2,31 +2,50 @@
 <html lang="en">
   <head>
     <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>TRMNL Mod Analytics</title>
+    <link rel="stylesheet" href="/styles.css" />
   </head>
   <body>
-    <h1>TRMNL Mod Analytics</h1>
-    <p>Micro-service to facilitate project analytics across various mod platforms. API Routes:</p>
-    <pre>GET /api/modrinth/summary?project_ids=worldedit,worldguard</pre>
-    <pre>GET /api/curseforge/summary?project_ids=225608,254692</pre>
-    <pre>GET /api/thunderstore/summary?project_ids=lethal-company/ebkr/r2modman</pre>
-    <pre>GET /api/nexusmods/summary?project_ids=skyrimspecialedition/2347</pre>
-    <pre>GET /api/steamworkshop/summary?project_ids=2009463077</pre>
-    <p>
-      Auth is provider-specific and is always supplied through the
-      <code>Authorization</code> header:
-    </p>
-    <ul>
-      <li>Modrinth: optional; required only for revenue data.</li>
-      <li>Nexus Mods: required; pass your Nexus Mods API key.</li>
-      <li>CurseForge: not required; this service uses its own internal API key.</li>
-      <li>Thunderstore: not required.</li>
-      <li>Steam Workshop: not required.</li>
-    </ul>
-    <p>Tokens are forwarded only when the selected provider needs them and are not stored.</p>
-    <p>
-      Created by <a href="https://madelinemiller.dev/">Me4502</a>. Source code available on
-      <a href="https://github.com/me4502/trmnl-mod-analytics">GitHub</a>.
-    </p>
+    <main class="page stack">
+      <section class="hero card">
+        <span class="eyebrow">TRMNL plugin helper</span>
+        <h1>Mod Analytics</h1>
+        <p class="lead">
+          A TRMNL plugin for project analytics across Modrinth, CurseForge, Thunderstore, Nexus
+          Mods, and Steam Workshop.
+        </p>
+      </section>
+
+      <section class="card">
+        <h2>API routes</h2>
+        <div class="routes">
+          <pre>GET /api/modrinth/summary?project_ids=worldedit,worldguard</pre>
+          <pre>GET /api/curseforge/summary?project_ids=225608,254692</pre>
+          <pre>GET /api/thunderstore/summary?project_ids=lethal-company/ebkr/r2modman</pre>
+          <pre>GET /api/nexusmods/summary?project_ids=skyrimspecialedition/2347</pre>
+          <pre>GET /api/steamworkshop/summary?project_ids=2009463077</pre>
+        </div>
+      </section>
+
+      <section class="card stack">
+        <p>
+          Auth is provider-specific and is always supplied through the
+          <code>Authorization</code> header:
+        </p>
+        <ul>
+          <li>Modrinth: optional; required only for revenue data.</li>
+          <li>Nexus Mods: required; pass your Nexus Mods API key.</li>
+          <li>CurseForge: not required; this service uses its own internal API key.</li>
+          <li>Thunderstore: not required.</li>
+          <li>Steam Workshop: not required.</li>
+        </ul>
+        <p>Tokens are forwarded only when the selected provider needs them and are not stored.</p>
+        <p>
+          Created by <a href="https://madelinemiller.dev/">Me4502</a>. Source code available on
+          <a href="https://github.com/me4502/trmnl-mod-analytics">GitHub</a>.
+        </p>
+      </section>
+    </main>
   </body>
 </html>
