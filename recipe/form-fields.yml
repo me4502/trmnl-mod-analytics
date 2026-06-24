@@ -3,6 +3,7 @@
   name: About Mod Analytics
   description: Shows total and per project downloads, as well as revenue where available, from mod platforms. Supports Modrinth, CurseForge, Thunderstore, Nexus Mods, and Steam Workshop. Modrinth revenue requires a PAT with PAYOUTS_READ.
   category: analytics
+  learn_more_url: https://trmnl-mod-analytics.maddy.tech
   github_url: https://github.com/Me4502/trmnl-mod-analytics
   email_address: trmnl@madelinemiller.dev
 
