@@ -7,12 +7,11 @@ export type Env = ProviderEnv;
 const PROJECT_IDS_PARAM = "project_ids";
 // This is data that updates very rarely, every hour for updates should be fine.
 const API_CACHE_TTL_SECONDS = 60 * 60;
-const API_CACHE_NAME = "trmnl-mod-analytics-summary";
 
 const SUMMARY_ROUTE_MATCHER = /^\/api\/([^/]+)\/summary$/;
 
 export default {
-  async fetch(request, env, ctx): Promise<Response> {
+  async fetch(request, env): Promise<Response> {
     if (request.method === "OPTIONS") {
       return new Response(null, {
         status: 204,
@@ -40,7 +39,7 @@ export default {
           );
         }
 
-        return handleSummary(request, url, provider, ctx);
+        return handleSummary(request, url, provider);
       }
     }
 
@@ -59,7 +58,6 @@ async function handleSummary(
   request: Request,
   url: URL,
   provider: SummaryProvider,
-  ctx: ExecutionContext,
 ): Promise<Response> {
   let projectIds: string[];
   try {
@@ -97,15 +95,6 @@ async function handleSummary(
   }
 
   const token = request.headers.get("authorization")?.trim() ?? "";
-  const cacheKey = token.length === 0 ? summaryCacheKey(request, provider, projectIds) : null;
-
-  if (cacheKey) {
-    const cache = await caches.open(API_CACHE_NAME);
-    const cachedResponse = await cache.match(cacheKey);
-    if (cachedResponse) {
-      return cachedResponse;
-    }
-  }
 
   try {
     const summary = await provider.buildSummary({
@@ -113,20 +102,14 @@ async function handleSummary(
       token,
     });
 
-    const response = jsonResponse(
+    return jsonResponse(
       {
         ...summary,
         providerName: provider.label,
       },
       200,
-      cacheKey ? cacheableApiHeaders() : nonCacheableApiHeaders(),
+      token.length === 0 ? cacheableApiHeaders() : nonCacheableApiHeaders(),
     );
-
-    if (cacheKey) {
-      ctx.waitUntil(putApiCache(cacheKey, response.clone()));
-    }
-
-    return response;
   } catch (error) {
     const upstreamError = provider.getUpstreamErrorMessage(error);
     if (upstreamError) {
@@ -171,19 +154,6 @@ function jsonResponse(
   });
 }
 
-function summaryCacheKey(
-  request: Request,
-  provider: SummaryProvider,
-  projectIds: string[],
-): Request {
-  const cacheUrl = new URL(request.url);
-  cacheUrl.pathname = `/api/${provider.key}/summary`;
-  cacheUrl.search = "";
-  cacheUrl.searchParams.set(PROJECT_IDS_PARAM, JSON.stringify(projectIds));
-
-  return new Request(cacheUrl.toString(), { method: "GET" });
-}
-
 function cacheableApiHeaders(): Record<string, string> {
   return {
     "cache-control": `public, max-age=${API_CACHE_TTL_SECONDS}, s-maxage=${API_CACHE_TTL_SECONDS}`,
@@ -196,11 +166,6 @@ function nonCacheableApiHeaders(): Record<string, string> {
     "cache-control": "no-store",
     vary: "authorization",
   };
-}
-
-async function putApiCache(cacheKey: Request, response: Response): Promise<void> {
-  const cache = await caches.open(API_CACHE_NAME);
-  await cache.put(cacheKey, response);
 }
 
 function corsHeaders(): Record<string, string> {

@@ -2,8 +2,6 @@ import { beforeEach, describe, expect, it, vi } from "vitest";
 
 import worker, { type Env } from "./worker.js";
 
-let cache: Cache;
-
 const env: Env = {
   CURSEFORGE_API_KEY: "curseforge-key",
   MODRINTH_USER_AGENT: "test/trmnl-mod-analytics",
@@ -11,33 +9,19 @@ const env: Env = {
 
 describe("worker API caching", () => {
   beforeEach(() => {
-    cache = createCacheStub();
     vi.stubGlobal("fetch", createModrinthFetchMock());
-    vi.stubGlobal("caches", {
-      open: vi.fn<CacheStorage["open"]>(async () => cache),
-    });
   });
 
-  it("caches successful anonymous summary responses by canonical project IDs", async () => {
-    const firstCtx = createExecutionContext();
-    const firstResponse = await worker.fetch(
+  it("marks successful anonymous summary responses as cacheable", async () => {
+    const response = await worker.fetch(
       incomingRequest(
         "https://example.com/api/modrinth/summary?ignored=true&project_ids=worldedit,worldedit",
       ),
       env,
-      firstCtx.ctx,
-    );
-    await Promise.all(firstCtx.waitUntilPromises);
-
-    expect(firstResponse.headers.get("cache-control")).toBe("public, max-age=3600, s-maxage=3600");
-
-    const secondResponse = await worker.fetch(
-      incomingRequest('https://example.com/api/modrinth/summary?project_ids=["worldedit"]'),
-      env,
-      createExecutionContext().ctx,
     );
 
-    await expect(secondResponse.json()).resolves.toMatchObject({
+    expect(response.headers.get("cache-control")).toBe("public, max-age=3600, s-maxage=3600");
+    await expect(response.json()).resolves.toMatchObject({
       ok: true,
       projects: [{ id: "worldedit" }],
     });
@@ -52,7 +36,6 @@ describe("worker API caching", () => {
         },
       }),
       env,
-      createExecutionContext().ctx,
     );
 
     expect(response.headers.get("cache-control")).toBe("no-store");
@@ -62,8 +45,6 @@ describe("worker API caching", () => {
         requested: true,
       },
     });
-    expect(cache.match).not.toHaveBeenCalled();
-    expect(cache.put).not.toHaveBeenCalled();
   });
 });
 
@@ -72,38 +53,6 @@ function incomingRequest(
   init?: RequestInit,
 ): Request<unknown, IncomingRequestCfProperties<unknown>> {
   return new Request(input, init) as Request<unknown, IncomingRequestCfProperties<unknown>>;
-}
-
-function createExecutionContext(): {
-  ctx: ExecutionContext;
-  waitUntilPromises: Promise<unknown>[];
-} {
-  const waitUntilPromises: Promise<unknown>[] = [];
-  return {
-    ctx: {
-      waitUntil(promise) {
-        waitUntilPromises.push(promise);
-      },
-      passThroughOnException() {},
-      props: undefined,
-    },
-    waitUntilPromises,
-  };
-}
-
-function createCacheStub(): Cache {
-  const responses = new Map<string, Response>();
-  return {
-    add: vi.fn<Cache["add"]>(async () => {}),
-    addAll: vi.fn<Cache["addAll"]>(async () => {}),
-    delete: vi.fn<Cache["delete"]>(async () => false),
-    keys: vi.fn<Cache["keys"]>(async () => []),
-    match: vi.fn<Cache["match"]>(async (request) => responses.get(cacheKeyUrl(request))?.clone()),
-    matchAll: vi.fn<Cache["matchAll"]>(async () => []),
-    put: vi.fn<Cache["put"]>(async (request, response) => {
-      responses.set(cacheKeyUrl(request), response.clone());
-    }),
-  };
 }
 
 function cacheKeyUrl(request: RequestInfo | URL): string {
