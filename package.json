@@ -19,14 +19,14 @@
     "prune": "knip"
   },
   "devDependencies": {
-    "@cloudflare/workers-types": "^4.20260621.1",
-    "@types/node": "^25.9.4",
-    "knip": "^6.17.1",
-    "oxfmt": "^0.55.0",
-    "oxlint": "^1.70.0",
+    "@cloudflare/workers-types": "^5.20260724.1",
+    "@types/node": "^25.9.5",
+    "knip": "^6.29.0",
+    "oxfmt": "^0.60.0",
+    "oxlint": "^1.75.0",
     "typescript": "^6.0.3",
-    "vitest": "^4.1.9",
-    "wrangler": "^4.103.0"
+    "vitest": "^4.1.10",
+    "wrangler": "^4.114.0"
   },
   "dependenciesMeta": {
     "esbuild": {
