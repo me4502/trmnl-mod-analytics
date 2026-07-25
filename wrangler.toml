@@ -6,6 +6,9 @@ compatibility_date = "2026-06-06"
 directory = "./public"
 run_worker_first = ["/api/*"]
 
+[cache]
+enabled = true
+
 [vars]
 # If you fork and/or change this project, please change this to identify your own software/deployment.
 # This is here per Modrinth policy to identify the software making requests, so forks should change this to avoid confusion.
